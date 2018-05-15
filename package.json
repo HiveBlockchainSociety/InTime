@@ -1,0 +1,19 @@
+{
+  "name": "intimetoken",
+  "version": "1.0.0",
+  "description": "",
+  "main": "inTime.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "ejs": "^2.6.1",
+    "express": "^4.16.3",
+    "mysql": "^2.15.0",
+    "npm": "^6.0.0",
+    "portis": "^1.0.8",
+    "web3": "^0.20.0"
+  }
+}
