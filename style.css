@@ -1,0 +1,43 @@
+/* HOME PAGE */
+header{
+    height: 120px;
+}
+.sidebar{
+    max-width: 100px;
+}
+.profile{
+    display: block;
+    height: 100%;
+}
+/* ADMIN PAGE */
+
+.card {
+    padding: 0px !important;
+    margin-left: 1rem;
+    margin-right: 1rem;
+}
+
+.card-title {
+    padding-bottom: 0px;
+    margin-bottom: 0px;
+}
+
+.card-body {
+    padding: 0px;
+    padding-left: 1.25rem;
+}
+
+.meetupName {
+    background-color: lightgrey;
+    padding: 0px;
+}
+
+.participantsList button {
+    margin-top: 5px;
+}
+
+.status {
+    display: block;
+    border: red solid 1px;
+    width: 60px;
+}
