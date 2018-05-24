@@ -1,7 +1,16 @@
-/* HOME PAGE */
-header{
-    height: 120px;
+/* LOGIN */
+body {
+    background-image: url("./assets/bck-img.jpg");
 }
+
+#login{
+    padding: 1rem;
+}
+#signin{
+    padding: 1rem;
+}
+/* HOME PAGE */
+
 .sidebar{
     max-width: 100px;
 }
@@ -9,9 +18,13 @@ header{
     display: block;
     height: 100%;
 }
-/* ADMIN PAGE */
+/* NEW MEETING */
+#newmeeting .card{
+    padding: 1rem;
+}
 
-.card {
+/* ADMIN PAGE */
+.meetingcard {
     padding: 0px !important;
     margin-left: 1rem;
     margin-right: 1rem;

@@ -1,31 +1,67 @@
 <!DOCTYPE html>
 <html>
+
 <head>
-	<title></title>
+	<title> In Time Inscription</title>
+
+	<link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+	    crossorigin="anonymous">
+	<link rel="stylesheet" href="./style.css">
+	<link rel="stylesheet" href="./reset.css">
+
 </head>
+
 <body>
+	<div class="container">
+		<div class="row">
+			<div class="col-3"></div>
+			<div class="col-6">
+				<header>
+					<h1> In Time</h1>
+					<h2> Join the team</h2>
+				</header>
+			</div>
+			<div class="col-3"></div>
+		</div>
+		<div class="row">
+			<div class="col-3"></div>
+			<div class="col-6 card" id="login">
+				<h3>Login</h3>
+				<form method="post" action="/login">
+					<label for="email">Email</label>
+					<input type="email" class="form-control" name="email">
+					<label for="password">Password</label>
+					<input type="text" class="form-control" name="password">
+					<br>
+					<input type="submit" class="btn btn-success" name="submit" value="submit">
+				</form>
+			</div>
+			<div class="col-3"></div>
+		</div>
+		<hr>
+		<div class="row">
+			<div class="col-3"></div>
+			<div class="col-6 card" id="signin">
+				<h3>Sign in </h3>
+				<form method="post" action="/">
+					<label>Nom</label>
+					<input type="text" class="form-control" name="nom">
+					<label for="prenom">Prenom</label>
+					<input type="text" class="form-control" name="prenom">
+					<label for="email">Email</label>
+					<input type="email" class="form-control" name="email">
+					<label for="password">Password</label>
+					<input type="text" class="form-control" name="password">
+					<label for="ethAddress">ETH Address</label>
+					<input type="number" class="form-control" name="ethAddress">
+					<br>
+					<input type="submit" class="btn btn-success" name="submit" value="submit">
 
-	<form method="post" action="/login">
-		<label for="email">email</label>
-		<input type="email" name="email">
-		<label for="password">password</label>
-		<input type="text" name="password">
-		<input type="submit" name="submit" value="submit">
-	</form>
-
-	<form method="post" action="/">
-		<label>Nom</label>
-		<input type="text" name="nom">
-		<label for="prenom">prenom</label>
-		<input type="text" name="prenom">
-		<label for="email">email</label>
-		<input type="email" name="email">
-		<label for="password">password</label>
-		<input type="text" name="password">
-		<label for="ethAddress">ethAddress</label>
-		<input type="number" name="ethAddress">
-		<input type="submit" name="submit" value="submit">
-
-	</form>
+				</form>
+			</div>
+			<div class="col-3"></div>
+		</div>
+	</div>
 </body>
+
 </html>

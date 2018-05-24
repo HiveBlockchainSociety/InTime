@@ -2,33 +2,38 @@
 <html>
 
 <head>
-  <title>portisTest</title>
-  <style type="text/css">
-    body {
-      background-color: blue;
-      text-align: center;
-    }
-
-    form {
-      text-align: center;
-    }
-  </style>
+  <title>In TIme - new meeting</title>
+  <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+  crossorigin="anonymous">
+  <link rel="stylesheet" href="./style.css">
+  <link rel="stylesheet" href="./reset.css">
 </head>
 
 <body>
 
-  <header>
-    <h1>In Time</h1>
-  </header>
-  <form method="post" action="/meeting">
-    <label for="name">Name of the meeting</label>
-    <input type="text" name="name">
-    <label for="meetTime">Time of meeting</label>
-    <input type="time" name="meetTime">
-    <label for="stake">stake</label>
-    <input type="number" name="stake">
-    <input type="submit" name="submit" id="submit">
-  </form>
+  <div class="container" id="newmeeting">
+    <div class="row">
+      <div class="col-3"></div>
+      <div class="col-6">
+        <header>
+          <h1>Create a new meeting</h1>
+        </header>
+        <div class="card">
+          <form method="post" action="/meeting">
+            <label for="name">Name of the meeting</label>
+            <input type="text" class="form-control" name="name">
+            <label for="meetTime">Time of meeting</label>
+            <input type="time"  class="form-control" name="meetTime">
+            <label for="stake">stake</label>
+            <input type="number"  class="form-control" name="stake">
+          </br>
+            <input type="submit"  class="btn btn-primary" name="submit" id="submit">
+          </form>
+        </div>
+      </div>
+      <div class="col-3"></div>
+    </div>
+  </div>
 
 
 

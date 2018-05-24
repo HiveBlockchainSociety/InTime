@@ -1,3 +1,4 @@
+
 h1,
 h2,
 p,
@@ -8,7 +9,9 @@ label,
 {
     color: white;
 }
-
+h1{
+    padding-top: 1rem;
+}
 ul, ol{
     list-style: none;
 }
