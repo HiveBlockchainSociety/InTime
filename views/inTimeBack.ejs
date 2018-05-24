@@ -1,24 +1,103 @@
 <!DOCTYPE html>
-<html>
+<html lang="en">
+
 <head>
-	<title></title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <meta http-equiv="X-UA-Compatible" content="ie=edge">
+    <title>Document</title>
+        <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
+        crossorigin="anonymous">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./reset.css">
 </head>
+
 <body>
+    <h1>Admin page</h1>
 
-	<!--afficher les demandes de transactions et les valider ou les infirmer-->
-	<!-- set si un participant est onTime -->
-	
-
-    <h1>Participants</h1>
-    <% for(let i = 0; i < result.length; i++) { %>
-        <article>
-            <h2><%= result[i].nom %></h1>
-            <p><%= result[i].address %></p>
-        </article>
+     <% for(let i = 0; i < result.length; i++) { %>   
+    <div class="card">
+        <h2 class="meetupName"><%= result[i].nom %></h2>
+        <div class="leftDiv">
+            <span class="meetingDate"><%= result[i].time %></span>
+           <!-- <span class="meetingHour"><%= result[i].time %></span>-->
+        </div>
+        <div class="rightDiv">
+            <ul class="participants">
+                <li><%= result[i].address %>
+                    <button class="btn" name="inTime" value="inTime">in time</button>
+                    <button class="btn" name="late" value="late">late</button>
+                </li>
+            </ul>
+        </div>
+    </div>
     <% } %>
+        
+    <button id="newMeetUp" name="newMeetup" value="newMeetup">NEW</button>
+      <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+        crossorigin="anonymous"></script>
+<script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
+<script>
+
+  if(typeof web3 != 'undefined'){
+      console.log("Using web3 detected from external source like Metamask")
+            web3 = new Web3(web3.currentProvider);
+
+   }else{
+         web3 = new Web3(new portis.PortisProvider({ network: 'ropsten' }))
+         console.log(web3.currentProvider.isPortis);
+   }
+this.web3.version.getNetwork((err, netId) => {
+  switch (netId) {
+    case "1":
+      console.log('This is mainnet')
+      break
+    case "2":
+      console.log('This is the deprecated Morden test network.')
+      break
+    case "3":
+      console.log('This is the ropsten test network.')
+      break
+    case "4":
+      console.log('This is the Rinkeby test network.')
+      break
+    case "42":
+      console.log('This is the Kovan test network.')
+      break
+    default:
+      console.log('This is an unknown network.')
+  }
+})
+var account = this.web3.eth.accounts[0];
+var accountInterval = setInterval(function() {
+  if (this.web3.eth.accounts[0] !== account) {
+    account = this.web3.eth.accounts[0];
+    //updateInterface();
+  }
+}, 100);
+
+// here goes a bit of code that you copy from your remix compiler like benetth wuth the uge string of hexadecimal
+var intimeContract = web3.eth.contract([{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_amount","type":"uint256"}],"name":"ethWithdraw","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_stake","type":"uint256"}],"name":"participate","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":false,"inputs":[{"name":"newOwner","type":"address"}],"name":"setOwner","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"newState","type":"bool"}],"name":"setPaused","outputs":[{"name":"success","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[],"name":"register","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":true,"inputs":[{"name":"_id","type":"uint256"}],"name":"getBalance","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[{"name":"_name","type":"string"},{"name":"_stake","type":"uint256"}],"name":"setMeeting","outputs":[{"name":"res","type":"bool"}],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"},{"name":"_stake","type":"uint256"}],"name":"refund","outputs":[],"payable":true,"stateMutability":"payable","type":"function"},{"constant":true,"inputs":[],"name":"totalMeetingStake","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"getOwner","outputs":[{"name":"owner","type":"address"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"pausedState","outputs":[{"name":"","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"isPaused","outputs":[{"name":"isIndeed","type":"bool"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":true,"inputs":[],"name":"participantsIn","outputs":[{"name":"","type":"uint256"}],"payable":false,"stateMutability":"view","type":"function"},{"constant":false,"inputs":[],"name":"redistribution","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"constant":false,"inputs":[{"name":"_id","type":"uint256"}],"name":"late","outputs":[],"payable":false,"stateMutability":"nonpayable","type":"function"},{"inputs":[],"payable":false,"stateMutability":"nonpayable","type":"constructor"},{"anonymous":false,"inputs":[{"indexed":true,"name":"sender","type":"address"},{"indexed":true,"name":"newPausedState","type":"bool"}],"name":"LogPausedSet","type":"event"},{"anonymous":false,"inputs":[{"indexed":true,"name":"previousOwner","type":"address"},{"indexed":true,"name":"newOwner","type":"address"}],"name":"LogOwnerSet","type":"event"}]);
+
+    // the address of the contract you are interracting with
+var inContract = intimeContract.at('0x85174b22515ff0d1dfe1d1a190182f3bd959f5a1');
+
+
+$("#newMeetUp").click(function(){
+
+    inContract.getBalance(0,function(error, result){
+        if(!error)
+            console.log(JSON.stringify(result));
+        else
+            console.error(error);
+        });
+});
 
 
 
+</script>
 
 </body>
+
 </html>
+
