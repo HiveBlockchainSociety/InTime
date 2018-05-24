@@ -4,11 +4,24 @@
 	<title></title>
 </head>
 <body>
+
+	<form method="post" action="/login">
+		<label for="email">email</label>
+		<input type="email" name="email">
+		<label for="password">password</label>
+		<input type="text" name="password">
+		<input type="submit" name="submit" value="submit">
+	</form>
+
 	<form method="post" action="/">
 		<label>Nom</label>
 		<input type="text" name="nom">
 		<label for="prenom">prenom</label>
 		<input type="text" name="prenom">
+		<label for="email">email</label>
+		<input type="email" name="email">
+		<label for="password">password</label>
+		<input type="text" name="password">
 		<label for="ethAddress">ethAddress</label>
 		<input type="number" name="ethAddress">
 		<input type="submit" name="submit" value="submit">
