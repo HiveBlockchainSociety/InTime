@@ -1,11 +1,11 @@
 pragma solidity ^0.4.19;
 
-
+import "./Pausable.sol";
 // create the token
 // make poeple send stake to the contract
 // verify that the contract is fullfield
 
-contract InTime {
+contract InTime is Pausable {
 
 
 	struct Participant {
@@ -13,19 +13,26 @@ contract InTime {
 		bool actif;	// ethereum address of the participants
 		bool onTime;	
 		uint balance;	//keep track of the balance of a participant
-		uint id;	
+		uint id;
 	}
-
+	struct Meeting {
+		string name;
+		uint time;
+		uint stake;
+		uint totalStake;
+		address[] meetingParticipant;
+	}
 	uint public totalMeetingStake;
 	uint public participantsIn;
 
 	mapping (address => Participant) hiveParticipants;
-	Participant[] participantList;
+	address[] participantList;
 
-	//array d'ids des participants à un meeting
-	uint[] meetingParticipants;
+	//array d'ids des participants 
+	Meeting[] meetingList;	
 
-		
+	//uint[2][] meetingList;
+
 //constructor
 	function InTime () {
 		
@@ -38,12 +45,15 @@ contract InTime {
 ***********************************************/
 
 
-function register () public payable returns(bool res)  {
+function register () returns(uint) {
 	
 	require( hiveParticipants[msg.sender].actif == false );
-	hiveParticipants[msg.sender].balance += msg.value;
 	hiveParticipants[msg.sender].actif = true;
-	participantList.push(hiveParticipants[msg.sender]);
+	participantsIn += 1;
+	hiveParticipants[msg.sender].id = participantsIn;
+	participantList.push(msg.sender);
+
+	return participantsIn;
 
 }
 
@@ -54,13 +64,18 @@ function register () public payable returns(bool res)  {
 ******************************************/
 
 
-function getParticipant (uint _id) public returns(uint)  {
-    uint paId = hiveParticipants[participantList[_id].addr].id;
-	return (paId);
+//function getName view (uint _id) returns(string) public {
+	 //return(hiveParticipants[participantList[_id]].nom);
+//}
+function getBalance (uint _id) public view returns(uint) {
+	return(hiveParticipants[participantList[_id]].balance);
 }
-function getBalance (uint _id) public returns(uint) {
-	return(participantList[_id].balance);
-}
+//function getId (uint _id) returns(uint) internal {
+	
+	//uint memory addr = participantList[_id];
+	//return addr;
+//}
+
 
 
 /*********************************************
@@ -75,12 +90,22 @@ function getBalance (uint _id) public returns(uint) {
 *********************************************/	
 
 
-	function setMeeting (uint _id) public returns(bool res) {
+	function setMeeting (string _name, uint _stake) public payable returns(bool res) {
 		
-		require( hiveParticipants[msg.sender].actif == true);
-		delete meetingParticipants;
-		meetingParticipants.push(_id);
-		participantsIn +=1;
+		//require( hiveParticipants[msg.sender].actif == true);
+		//create a new meeting with the properties : time, name, id 
+		//delete meetingParticipants;
+		//meetingParticipants.push(_id);
+		Meeting meeting = Meeting();
+		//meeting.time = /*time of the meeting*/;
+		meeting.stake = _stake;
+		meeting.totalStake += _stake;
+		meeting.name = _name;
+		meeting.meetingParticipant.push(msg.sender);
+		meetingList.push(meeting);
+
+
+		return true;
 	}
 
 	// set who assist to a particular meeting  
@@ -89,16 +114,17 @@ function getBalance (uint _id) public returns(uint) {
 	function participate (uint _id, uint _stake) public payable {
 
 		require( hiveParticipants[msg.sender].actif == true );
-		meetingParticipants.push(_id);
+		require (msg.value == _stake);
+		
 		participantsIn +=1;
-		hiveParticipants[msg.sender].balance -= _stake;
+		hiveParticipants[msg.sender].balance -= msg.value;
 		totalMeetingStake += _stake;
 	}
 	//retire les participants en retard
 	function late(uint _id) public{
-
-		participantList[_id].onTime == false;
-		participantsIn -= 1 ;
+        //require(participant to be in meeting, and the meeting he is assisting)
+		hiveParticipants[participantList[_id]].onTime == false;
+		
 	}
 
 	//redistribute the stake to the participant that are inTime  
@@ -106,13 +132,17 @@ function getBalance (uint _id) public returns(uint) {
 	function redistribution() public{
 
 		uint payedAmount = totalMeetingStake / participantsIn;
-		
+		//prend la liste des participants au meeting pour augmenter leur balance à hauteur du stake.
 		for(uint i; i< participantsIn; i++){
 
-		//	if()
+			if(hiveParticipants[participantList[i]].onTime == true){
+			    
+			   
+					hiveParticipants[meetingList[i].meetingParticipant[i]].balance += payedAmount;
+
+			}
 		}
-		delete meetingParticipants;
-		
+		delete meetingList;
 	}
 
 
@@ -122,19 +152,19 @@ function getBalance (uint _id) public returns(uint) {
 	**************************************/	
 	
 	//allow a participant to refund his account
-	function refund (uint _id, uint _stake) public payable {
+	function refund () public payable {
 		//require to already be amongs the hiveParticipants
 		require( hiveParticipants[msg.sender].actif == true );
-		hiveParticipants[msg.sender].balance += _stake;
+		hiveParticipants[msg.sender].balance += msg.value;
 
 	}
 	//withdraw from account
-	function ethWithdraw(uint _id, uint _stake) public {
+	function ethWithdraw(uint _id, uint _amount) public {
 
 		require( hiveParticipants[msg.sender].actif == true );
-		require(hiveParticipants[msg.sender].balance > _stake);
+		require(hiveParticipants[msg.sender].balance > _amount);
 		
-		hiveParticipants[msg.sender].addr.transfer( _stake);
+	        participantList[_id].transfer( _amount);
 
 	}
 

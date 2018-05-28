@@ -1,6 +1,5 @@
 <!DOCTYPE html>
 <html>
-
 <head>
   <title>In TIme - new meeting</title>
   <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
@@ -8,7 +7,6 @@
   <link rel="stylesheet" href="./style.css">
   <link rel="stylesheet" href="./reset.css">
 </head>
-
 <body>
 
   <div class="container" id="newmeeting">
@@ -37,122 +35,18 @@
 
 
 
-  <script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
+<script src="https://code.jquery.com/jquery-3.2.1.slim.min.js" integrity="sha384-KJ3o2DKtIkvYIK3UENzmM7KCkRr/rE9/Qpg6aAZGJwFDMVNA/GpGFF93hXpG5KkN"
     crossorigin="anonymous"></script>
 
-  <script type="text/javascript">
-    //require web3js on the server
+<script type="text/javascript">
+	
 
-    /*
-       if(typeof web3 != 'undefined'){
-          console.log("Using web3 detected from external source like Metamask")
-             web3js = new Web3(new portis.Provider({ network: 'ropsten' }));
-       }else{
-          this.web3 = new Web3(new Web3.providers.HttpProvider("http://localhost:8045"))
-       }
-    web3.version.getNetwork((err, netId) => {
-      switch (netId) {
-        case "1":
-          console.log('This is mainnet')
-          break
-        case "2":
-          console.log('This is the deprecated Morden test network.')
-          break
-        case "3":
-          console.log('This is the ropsten test network.')
-          break
-        case "4":
-          console.log('This is the Rinkeby test network.')
-          break
-        case "42":
-          console.log('This is the Kovan test network.')
-          break
-        default:
-          console.log('This is an unknown network.')
-      }
-    })
-    var account = web3.eth.accounts[0];
-    var accountInterval = setInterval(function() {
-      if (web3.eth.accounts[0] !== account) {
-        account = web3.eth.accounts[0];
-        //updateInterface();
-      }
-    }, 100);
-
-    var cryptopokerContract = web3.eth.contract([
-      {
-        "constant": false,
-        "inputs": [],
-        "name": "setId",
-        "outputs": [
-          {
-            "name": "res",
-            "type": "bool"
-          }
-        ],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "function"
-      },
-      {
-        "inputs": [],
-        "payable": false,
-        "stateMutability": "nonpayable",
-        "type": "constructor"
-      }
-    ]);
-    // here goes a bit of code that you copy from your remix compiler like benetth wuth the uge string of hexadecimal
-    var cryptopoker = cryptopokerContract.new(
-       
-       {
-              from: web3.eth.accounts[0], 
-                   data: '0x60606040523415600e57600080fd5b60ab8061001c6000396000f300606060405260043610603f576000357c0100000000000000000000000000000000000000000000000000000000900463ffffffff168063087e926c146044575b600080fd5b3415604e57600080fd5b6054606e565b604051808215151515815260200191505060405180910390f35b6000600160008190555060019050905600a165627a7a723058209c4ed99693f2597cd898d6940945c17adb8162d2caf7c7547a554bacbb1fc3ba0029', 
-         gas: '4700000'
-       
-       }, function (e, contract){
-        console.log(e, contract);
-        if (typeof contract.address !== 'undefined') {
-             console.log('Contract mined! address: ' + contract.address + ' transactionHash: ' + contract.transactionHash);
-        }
-     })
-
-        // the address of the contract you are interracting with
-    var pokerContract = cryptopokerContract.at('0x692a70d2e424a56d2c6c27aa97d1a86395877b3a');
-
-
-    $("#submit").click(function(){
-
-        pokerContract.setId(function(error, result){
-            if(!error)
-                console.log(JSON.stringify(result));
-            else
-                console.error(error);
-            });
-    });
-
-    // a good practice is to always try to put the smart contract's function requirement as beneeth
-    //require more than 5 players/ player not busted / player stillIn
-
-    /*$('#busted').click(function(){
-
-        var r = confirm("voulez vous vraiment busted le joueur à l'id"+0);
-        if (r == true) {
-            //when you call a function of the contract you always need to put a calbak function as in the exemple
-             pokerContract.playerBusted( 0, function(error, result){
-            if(!error)
-                console.log(JSON.stringify(result));
-            else
-                console.error(error);
-            });
-        } 
-
-    });*/
-  </script>
+	
+</script>
 
 
 
 
 
 </body>
-
 </html>
