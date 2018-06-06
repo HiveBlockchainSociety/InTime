@@ -7,17 +7,17 @@ import "./Pausable.sol";
 
 contract InTime is Pausable {
 
-
 	struct Participant {
 		address addr;
 		bool actif;	// ethereum address of the participants
 		bool onTime;	
 		uint balance;	//keep track of the balance of a participant
 		uint id;
+		uint meetings;
 	}
 	struct Meeting {
 		string name;
-		uint time;
+		string time;
 		uint stake;
 		uint totalStake;
 		address[] meetingParticipant;
@@ -33,138 +33,26 @@ contract InTime is Pausable {
 
 	//uint[2][] meetingList;
 
-//constructor
-	function InTime () {
+
+
+
+//solution de secour juste un update des balances par l'owner.
+
+function updateBalance(int _userId, uint _amount) returns(bool){
+
 		
-	}	
-
-/********************************************
-	REGISTRATION OF NEW PARTICIPATNTS
-
-
-***********************************************/
-
-
-function register () returns(uint) {
-	
-	require( hiveParticipants[msg.sender].actif == false );
-	hiveParticipants[msg.sender].actif = true;
-	participantsIn += 1;
-	hiveParticipants[msg.sender].id = participantsIn;
-	participantList.push(msg.sender);
-
-	return participantsIn;
-
 }
 
-/*******************************************
-
-	GET INFO ON PARTICIPANTS
-
-******************************************/
 
 
-//function getName view (uint _id) returns(string) public {
-	 //return(hiveParticipants[participantList[_id]].nom);
-//}
-function getBalance (uint _id) public view returns(uint) {
-	return(hiveParticipants[participantList[_id]].balance);
-}
-//function getId (uint _id) returns(uint) internal {
-	
-	//uint memory addr = participantList[_id];
-	//return addr;
-//}
+//register participant
+
+// create new meetings
+
+// set meeting participants
+
+//redistribute
 
 
-
-/*********************************************
-
-	NEW MEETING
-
-	* set the meeting
-	* reister the meeting's participants
-	* verify if everyone was on time
-	* redistribute the stake
-
-*********************************************/	
-
-
-	function setMeeting (string _name, uint _stake) public returns(bool res) {
-		require(msg.value == _stake);
-		//require( hiveParticipants[msg.sender].actif == true);
-		//create a new meeting with the properties : time, name, id 
-		//delete meetingParticipants;
-		//meetingParticipants.push(_id);é""
-		Meeting meeting;
-		//meeting.time = /*time of the meeting*/;
-		meeting.stake = _stake;
-		meeting.totalStake += _stake;
-		meeting.name = _name;
-		meeting.meetingParticipant.push(msg.sender);
-		meetingList.push(meeting);
-
-		return true;
-	}
-
-	// set who assist to a particular meeting  
-	// the owner is always present
-	// the participant call this function to be in buy sending his stake
-	function participate (uint _id, uint _stake) public payable {
-
-		require( hiveParticipants[msg.sender].actif == true );
-		require (msg.value == _stake);
-		
-		participantsIn +=1;
-		hiveParticipants[msg.sender].balance -= _stake;
-		totalMeetingStake += _stake;
-	}
-	//retire les participants en retard
-	function late(uint _id) public{
-
-		hiveParticipants[participantList[_id]].onTime == false;
-		
-	}
-
-	//redistribute the stake to the participant that are inTime  
-	//end the meeting
-	function redistribution() public{
-
-		uint payedAmount = totalMeetingStake / participantsIn;
-		//prend la liste des participants au meeting pour augmenter leur balance à hauteur du stake.
-		for(uint i; i< participantsIn; i++){
-
-			if(hiveParticipants[participantList[i]].onTime == true){
-			    
-			   
-					hiveParticipants[meetingList[i].meetingParticipant[i]].balance += payedAmount;
-
-			}
-		}
-		delete meetingList;
-	}
-
-
-	/***************************************
-		ETHER TRANSACTIONS
-
-	**************************************/	
-	
-	//allow a participant to refund his account
-	function refund (uint _id, uint _stake) public payable {
-		//require to already be amongs the hiveParticipants
-		require( hiveParticipants[msg.sender].actif == true );
-		hiveParticipants[msg.sender].balance += _stake;
-
-	}
-	//withdraw from account
-	function ethWithdraw(uint _id, uint _amount) public {
-
-		require( hiveParticipants[msg.sender].actif == true );
-		require(hiveParticipants[msg.sender].balance > _amount);
-		
-	        participantList[_id].transfer( _amount);
-
-	}
 
 }
