@@ -12,7 +12,7 @@ var url = "mongodb+srv://jimmy:XCIdBNjMqct4hiWk@hive-ymdnx.mongodb.net/test?retr
 var session = require('express-session');
 var nodemailer = require('nodemailer');//to use in local
 const sgMail = require('@sendgrid/mail');
-sgMail.setApiKey('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');
+
 
 app.set('view engine', 'ejs' );//set ejs as view engine
 app.use(express.static(__dirname + '/src'));//include css
@@ -300,9 +300,7 @@ app.post('/meeting',function(req,res){
                   }
                 });*/
 
-                
-//'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'
-//sgMail.setApiKey('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');
+
 const msg = { // mail à envoyer au travers de l'api
   to: participants,
   from: 'jimmy@hive.com',
@@ -332,8 +330,6 @@ sgMail.send(msg);
                   }
                 });*/
           
-//sgMail.setApiKey(process.env.SENDGRID_API_KEY);
-//'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'
 
 const msg = {
   to: participants[i],
