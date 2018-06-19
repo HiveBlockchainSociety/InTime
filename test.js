@@ -10,12 +10,17 @@ var ejs = require('ejs');
 var MongoClient = require('mongodb').MongoClient;
 var url = "mongodb://localhost:27017/";
 var session = require('express-session');
+<<<<<<< HEAD:test.js
 var nodemailer = require('nodemailer');
 var BigNumber = require('bignumber.js');
 
 
 var helper = require('sendgrid').mail;
 var from_email = new helper.Email('jimmyarona@hotmail.be');
+=======
+var nodemailer = require('nodemailer');//to use in local
+const sgMail = require('@sendgrid/mail');
+>>>>>>> 985ce2a03bd7dbb19064363056bdfbe9329047a1:index.js
 
 
 
@@ -358,6 +363,7 @@ sgMail.send(msg);
                   }
                 });*/
 
+<<<<<<< HEAD:test.js
 /*var to_email = new helper.Email(participants);
 var subject = 'Hello World from the SendGrid Node.js Library!';
 var content = new helper.Content('text/plain', 'Hello, Email!');
@@ -403,6 +409,17 @@ sg.API(request)
     console.log(error.response.statusCode);
   });
 */
+=======
+
+const msg = { // mail à envoyer au travers de l'api
+  to: participants,
+  from: 'jimmy@hive.com',
+  subject: 'inTime meeting',
+  text:'You received an invatation to be intime for the '+ post['name']+ 'meeting at '+ post['meetTime'],
+  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+};
+sgMail.send(msg);
+>>>>>>> 985ce2a03bd7dbb19064363056bdfbe9329047a1:index.js
 
     }else {
     
@@ -422,7 +439,21 @@ sg.API(request)
                     console.log('Email sent: ' + info.response);
                     transporter.close();
                   }
+<<<<<<< HEAD:test.js
                 });
+=======
+                });*/
+          
+
+const msg = {
+  to: participants[i],
+  from: 'jimmy@hive.com',
+  subject: 'inTime meeting',
+  text: 'You received an invatation to be intime for the '+ post['name']+ 'meeting at '+ post['meetTime'],
+  html: '<strong>and easy to do anywhere, even with Node.js</strong>',
+};
+sgMail.send(msg);
+>>>>>>> 985ce2a03bd7dbb19064363056bdfbe9329047a1:index.js
 
 
       }
