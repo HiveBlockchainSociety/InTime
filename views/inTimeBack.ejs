@@ -8,28 +8,34 @@
     <title>Document</title>
         <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.0/css/bootstrap.min.css" integrity="sha384-9gVQ4dYFwwWSjIDZnLEWnxCjeSWFphJiwGPXr1jddIhOegiu1FwO5qRGvFXOdJZ4"
         crossorigin="anonymous">
-    <link rel="stylesheet" href="style.css">
-    <link rel="stylesheet" href="reset.css">
+    <link rel="stylesheet" href="./style.css">
+    <link rel="stylesheet" href="./reset.css">
 </head>
 
 <body>
     <h1>Admin page</h1>
 
-     <% for(let i = 0; i < result.length; i++) { %>   
-    <div class="card">
-        <h2 class="meetupName"><%= result[i].name %></h2>
+     <% for(let i = 0; i < newResult.meeting.length; i++) { %>   
+    <div id=<%=i%> class="card">
+        <h2 class="meetupName"><%= newResult.meeting[i].name %></h2>
         <div class="leftDiv">
-            <span class="meetingDate"><%= result[i].meetTime %></span>
-           <!-- <span class="meetingHour"><%= result[i].time %></span>-->
+            <span class="meetingDate"><%= newResult.meeting[i].meetTime %></span>
+           <!-- <span class="meetingHour"></span>-->
         </div>
         <div class="rightDiv">
             <ul class="participants">
-                <li><%= result[i].address %>
-                    <button class="btn" name="inTime" value="inTime">in time</button>
-                    <button class="btn" name="late" value="late">late</button>
+
+              <% for(var j = 0; j < newResult.meeting[i].participants.length; j++) { %>
+
+                <li><%= newResult.meeting[i].participants[j] %>
+                    <button id=<%=i+"atTime"+j%> class="btn" name="inTime" value="inTime">in time</button>
+                    <button id=<%=i+"late"+j%> class="btn" name="late" value="late">late</button>
                 </li>
+
+                <% } %>
             </ul>
         </div>
+        <button id=<%="distribute" + i %>>distribute</button>
     </div>
     <% } %>
         
@@ -38,8 +44,7 @@
         crossorigin="anonymous"></script>
 <script src="https://cdn.jsdelivr.net/gh/ethereum/web3.js/dist/web3.min.js"></script>
 <script>
-
-  if(typeof web3 != 'undefined'){
+if(typeof web3 != 'undefined'){
       console.log("Using web3 detected from external source like Metamask")
             web3 = new Web3(web3.currentProvider);
 
@@ -86,52 +91,6 @@ var intimeContract = web3.eth.contract([
         "type": "uint256"
       },
       {
-        "name": "_stake",
-        "type": "uint256"
-      }
-    ],
-    "name": "diminueBalance",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_id",
-        "type": "uint256"
-      },
-      {
-        "name": "_stake",
-        "type": "uint256"
-      }
-    ],
-    "name": "enrichiBalance",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_id",
-        "type": "uint256"
-      },
-      {
         "name": "_amount",
         "type": "uint256"
       }
@@ -141,68 +100,6 @@ var intimeContract = web3.eth.contract([
     "payable": false,
     "stateMutability": "nonpayable",
     "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "getMeetingId",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [
-      {
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "late",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "name": "previousOwner",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "name": "newOwner",
-        "type": "address"
-      }
-    ],
-    "name": "LogOwnerSet",
-    "type": "event"
-  },
-  {
-    "anonymous": false,
-    "inputs": [
-      {
-        "indexed": true,
-        "name": "sender",
-        "type": "address"
-      },
-      {
-        "indexed": true,
-        "name": "newPausedState",
-        "type": "bool"
-      }
-    ],
-    "name": "LogPausedSet",
-    "type": "event"
   },
   {
     "constant": false,
@@ -223,48 +120,22 @@ var intimeContract = web3.eth.contract([
     "type": "function"
   },
   {
-    "constant": false,
-    "inputs": [],
-    "name": "redistribution",
-    "outputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "function"
-  },
-  {
-    "constant": false,
-    "inputs": [],
-    "name": "refund",
-    "outputs": [],
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "function"
-  },
-  {
-    "constant": false,
+    "constant": true,
     "inputs": [
       {
-        "name": "_name",
-        "type": "string"
-      },
+        "name": "_addr",
+        "type": "address"
+      }
+    ],
+    "name": "getBalanceByAddress",
+    "outputs": [
       {
-        "name": "_time",
-        "type": "string"
-      },
-      {
-        "name": "_stake",
+        "name": "",
         "type": "uint256"
       }
     ],
-    "name": "setMeeting",
-    "outputs": [
-      {
-        "name": "res",
-        "type": "bool"
-      }
-    ],
     "payable": false,
-    "stateMutability": "nonpayable",
+    "stateMutability": "view",
     "type": "function"
   },
   {
@@ -306,36 +177,6 @@ var intimeContract = web3.eth.contract([
     "type": "function"
   },
   {
-    "payable": true,
-    "stateMutability": "payable",
-    "type": "fallback"
-  },
-  {
-    "inputs": [],
-    "payable": false,
-    "stateMutability": "nonpayable",
-    "type": "constructor"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getAddress",
-    "outputs": [
-      {
-        "name": "",
-        "type": "address"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
     "constant": true,
     "inputs": [
       {
@@ -344,63 +185,6 @@ var intimeContract = web3.eth.contract([
       }
     ],
     "name": "getBalance",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "_addr",
-        "type": "address"
-      }
-    ],
-    "name": "getId",
-    "outputs": [
-      {
-        "name": "",
-        "type": "uint256"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getMeetingName",
-    "outputs": [
-      {
-        "name": "",
-        "type": "string"
-      }
-    ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [
-      {
-        "name": "_id",
-        "type": "uint256"
-      }
-    ],
-    "name": "getMeetingStake",
     "outputs": [
       {
         "name": "",
@@ -432,12 +216,178 @@ var intimeContract = web3.eth.contract([
   },
   {
     "constant": true,
+    "inputs": [
+      {
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getMeetingStake",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [],
+    "name": "refund",
+    "outputs": [],
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "totalMeetingStake",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_addr",
+        "type": "address"
+      }
+    ],
+    "name": "getId",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "name": "_addr",
+        "type": "address"
+      }
+    ],
+    "name": "late",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getMeetingName",
+    "outputs": [
+      {
+        "name": "",
+        "type": "string"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "name": "_stake",
+        "type": "uint256"
+      }
+    ],
+    "name": "enrichiBalance",
+    "outputs": [
+      {
+        "name": "",
+        "type": "uint256"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
     "inputs": [],
     "name": "getOwner",
     "outputs": [
       {
         "name": "owner",
         "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_name",
+        "type": "string"
+      },
+      {
+        "name": "_time",
+        "type": "string"
+      },
+      {
+        "name": "_stake",
+        "type": "uint256"
+      },
+      {
+        "name": "_firstPlayer",
+        "type": "address"
+      }
+    ],
+    "name": "setMeeting",
+    "outputs": [
+      {
+        "name": "res",
+        "type": "bool"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [],
+    "name": "pausedState",
+    "outputs": [
+      {
+        "name": "",
+        "type": "bool"
       }
     ],
     "payable": false,
@@ -459,6 +409,58 @@ var intimeContract = web3.eth.contract([
     "type": "function"
   },
   {
+    "constant": false,
+    "inputs": [
+      {
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "redistribution",
+    "outputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "getAddress",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
+    "constant": true,
+    "inputs": [
+      {
+        "name": "_id",
+        "type": "uint256"
+      }
+    ],
+    "name": "compare",
+    "outputs": [
+      {
+        "name": "",
+        "type": "address[]"
+      }
+    ],
+    "payable": false,
+    "stateMutability": "view",
+    "type": "function"
+  },
+  {
     "constant": true,
     "inputs": [],
     "name": "participantsIn",
@@ -473,23 +475,18 @@ var intimeContract = web3.eth.contract([
     "type": "function"
   },
   {
-    "constant": true,
-    "inputs": [],
-    "name": "pausedState",
-    "outputs": [
+    "constant": false,
+    "inputs": [
       {
-        "name": "",
-        "type": "bool"
+        "name": "_id",
+        "type": "uint256"
+      },
+      {
+        "name": "_stake",
+        "type": "uint256"
       }
     ],
-    "payable": false,
-    "stateMutability": "view",
-    "type": "function"
-  },
-  {
-    "constant": true,
-    "inputs": [],
-    "name": "totalMeetingStake",
+    "name": "diminueBalance",
     "outputs": [
       {
         "name": "",
@@ -497,24 +494,154 @@ var intimeContract = web3.eth.contract([
       }
     ],
     "payable": false,
-    "stateMutability": "view",
+    "stateMutability": "nonpayable",
     "type": "function"
+  },
+  {
+    "inputs": [],
+    "payable": false,
+    "stateMutability": "nonpayable",
+    "type": "constructor"
+  },
+  {
+    "payable": true,
+    "stateMutability": "payable",
+    "type": "fallback"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "sender",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "newPausedState",
+        "type": "bool"
+      }
+    ],
+    "name": "LogPausedSet",
+    "type": "event"
+  },
+  {
+    "anonymous": false,
+    "inputs": [
+      {
+        "indexed": true,
+        "name": "previousOwner",
+        "type": "address"
+      },
+      {
+        "indexed": true,
+        "name": "newOwner",
+        "type": "address"
+      }
+    ],
+    "name": "LogOwnerSet",
+    "type": "event"
   }
 ]);
 
     // the address of the contract you are interracting with
-var inContract = intimeContract.at('0x391ed46bf6d534fd76dc1e9f2def102be49da4b5');
+var inContract = intimeContract.at('0xA41921d2FcC11f0352c188bf954ee19BA9cEc173');
+
+var usersAddress= [] ;
+var userMail = [];
+ //mail of participants
+
+<% for (var i = 0; i < newResult.user.length; i++)  {   %>
+
+  usersAddress.push(<%- newResult.user[i].address %>);
+  userMail.push(<%-JSON.stringify(newResult.user[i].email)  %>);
+
+<% }%>
+
+<% for (var i = 0; i < newResult.meeting.length; i++)  {%>
+
+        var inTimePoeple<%=i%> = [];
+        var latePoeple<%=i%> = [];   
+
+//les participants
+  <%for (let j=0; j< newResult.meeting[i].participant; j++) {%>
+
+    let participe=find(<%= newResult.meeting[i].participant[j] %>);
 
 
-$("#newMeetUp").click(function(){
+          var participeId = inContract.getId(participe, <%=newResult.meeting[i].stake%>, function(error, result) {
 
-    inContract.getBalance(0,function(error, result){
-        if(!error)
-            console.log(JSON.stringify(result));
-        else
-            console.error(error);
+                    if(!error)
+                        console.log(JSON.stringify(result));
+                    else
+                        console.error(error);
+              
+      });
+
+
+
+
+
+        $(<%="#"+i+"atTime"+j%>).click(function(){
+             inTimePoeple<%=i%>.push(participeId);
+
         });
-});
+        $(<%="#"+i+"late"+j%>).click(function(){
+             latePoeple<%=i%>.push(participeId);
+
+        });
+
+  <% }%>
+//distribution
+
+
+
+    $(<%="distribute"+i%>).click(function(){
+
+      var stake = <%=newResult.meeting[i].stake%>;
+
+      var recompense =  stake +(stake/latePoeple<%=i%>.length);
+
+    for (var i = 0; i < inTimePoeple<%=i%>.length; i++) {
+
+      inContract.enrichiBalance(inTimePoeple<%=i%>[i], recompense , function(error, result) {
+
+                    if(!error)
+                        console.log(JSON.stringify(result));
+                    else
+                        console.error(error);
+                
+
+      });
+    }
+    for (var i = 0; i < latePoeple<%=i%>.length; i++) {
+      inContract.diminueBalance(latePoeple<%=i%>[i], <%=newResult.meeting[i].stake%>, function(error, result) {
+
+                    if(!error)
+                        console.log(JSON.stringify(result));
+                    else
+                        console.error(error);
+              
+      });
+
+    }
+  });
+
+<% }%>
+
+
+
+function find(participant) {
+
+  for (var i = 0; i < userMail.length; i++) {
+    
+    if (userMail[i]== participant) {
+        return usersAddress[i];
+    }else{
+      console.log('non register')
+    }
+  }
+}
 
 
 
