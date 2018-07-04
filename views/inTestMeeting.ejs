@@ -20,8 +20,8 @@
         <header>
           <h1>Create a new meeting</h1>
         </header>
-        <div class="card">
-          <form method="post" action="/meeting">
+        <div class="card meeting-card">
+          <form method="post" action="/meeting" class="meeting">
             <label for="name">Name of the meeting</label>
             <input type="text" class="form-control" name="name">
             <label for="meetTime">Time of meeting</label>
@@ -29,17 +29,20 @@
             <label for="stake">stake</label>
             <input type="number"  class="form-control" name="stake">
           </br>
+        
+          <div class="result">
                <% for(let i = 0; i < result.length; i++) { %>   
 
-        <div>
-
+        <div class="result-items">
           <h3> <%=result[i].prenom %> </h3>
           <input type="checkbox" name="participants[]" id="participants" value= <%=result[i].email %>   >
 
         </div>
-    <% } %>
 
-            <input type="submit"  class="btn btn-primary" name="submit" id="submit">
+    <% } %>
+    <input type="submit"  class="btn btn-primary" name="submit" id="submit">
+
+</div>
           </form>
         </div>
       </div>

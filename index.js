@@ -8,7 +8,7 @@ var server = require('http').Server(app);
 var io = require('socket.io').listen(server);
 var ejs = require('ejs');
 var MongoClient = require('mongodb').MongoClient;
-var url = "mongodb+srv://jimmy:XCIdBNjMqct4hiWk@hive-ymdnx.mongodb.net/test?retryWrites=true";
+var url = "mongodb+srv://jimmy:p6FBwubkdWvdUa5X@hive-ymdnx.mongodb.net/test?retryWrites=true";
 var session = require('express-session');
 var nodemailer = require('nodemailer');//to use in local
 const sgMail = require('@sendgrid/mail');

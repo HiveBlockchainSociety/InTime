@@ -1,56 +1,157 @@
-/* LOGIN */
-body {
-    background-image: url("bck-img.jpg");
+body{
+    background:#271F13;
+    color: #FBBF10;
+    font-family: sans-serif;
+}
+header{
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    text-align: center;
 }
 
-#login{
-    padding: 1rem;
-}
-#signin{
-    padding: 1rem;
-}
-/* HOME PAGE */
+.headline-intime{
+    height: 500px;
+   
 
-.sidebar{
-    max-width: 100px;
 }
-.profile{
-    display: block;
+.col-4{
+    margin: 0 auto;
+}
+.animate-logo{
+    width: 50%;
+    z-index: 10;
+    margin: 0 auto;
+}
+
+.container{
+    width: 100%;
+    max-width: 960px;
+
+    margin: 0 auto;
+}
+
+.row{
+    display: flex;
+    flex-direction: column;
+    justify-content: center
+}
+.card{
+    display: flex;
+    flex-direction: column;
+   
+    background-color:transparent;
+    border-radius: 20px;
+    height: 400px;
+    padding: 20px;
+    border:2px solid #FBBF10;
+    background-color: #221B13;
+    margin-top: 50px
+    
+    
+}
+form{
+    display: flex;
+    flex-direction: column;
+    width: 480px;
+    text-align: center;
+    margin: 0 auto;
+ 
+}
+
+input{
+    background: transparent;
+    border: 1px solid #FBBF10;
+    height: 40px;  
+    width: 320px; 
+    margin: 8px auto;  
+
+}
+.btn{
+    width: 320px;
+    margin: 0 auto;
+    color: #fff;
+}
+
+h3{
+    color: #fff;
+}
+
+.form-control{
+    background: transparent;
+    border: 1px solid #FBBF10;
+    height: 40px;  
+    width: 320px; 
+    margin: 8px auto;   
+}
+
+.meetupName{
+    text-align: center;
+}
+.leftDiv{
+    margin: 0 auto;
+}
+.rightDiv{
+    width: 320px;
+    margin: auto;
+}
+.participants{
+    width: 320px;
+    
+}
+.participants li{
+    display: flex;
+}
+.participants li button{
+    display: inline-block;
+    width:auto;
+    background: transparent;
+    border: 1px solid #FBBF10;
+    
+}
+.meeting{
+    width: auto;
     height: 100%;
 }
-/* NEW MEETING */
-#newmeeting .card{
-    padding: 1rem;
+.result{
+    display: flex;
+    flex-direction: column;
 }
-
-/* ADMIN PAGE */
-.meetingcard {
-    padding: 0px !important;
-    margin-left: 1rem;
-    margin-right: 1rem;
+.result-items{
+    display: flex;
+    margin: 20px;
+    justify-content:space-between;
 }
-
-.card-title {
-    padding-bottom: 0px;
-    margin-bottom: 0px;
+#participants{
+    width: 50px;
+    height: 25px;
+    margin: 0;
 }
-
-.card-body {
-    padding: 0px;
-    padding-left: 1.25rem;
+.meeting-card{
+    height: auto;
+    margin: 0 auto;
 }
-
-.meetupName {
-    background-color: lightgrey;
-    padding: 0px;
+.btn {
+    background:transparent;
+    color: #FBBF10;
+    border: 1px solid #fff
 }
+.col-6{
+    width: 100%;
+    max-width: 960px;
 
-.participantsList button {
-    margin-top: 5px;
+    margin: 0 auto;
 }
+@media screen and (max-width:550px){
+    .card{
+        width: 320px;
+        padding: 0;
+        margin: 0 auto;
+        margin-top: 15px;
+        height: 500px;
 
-.status {
-    display: block;
-    border: red solid 1px;
-    width: 60px;
+    }
+    form{
+        width: 320px;
+    }
 }
