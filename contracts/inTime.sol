@@ -36,7 +36,7 @@ contract InTime is Pausable {
 
 //constructor
 	function InTime () {
-		
+		 participantsIn = 0;
 	}	
 
 /********************************************
@@ -46,15 +46,17 @@ contract InTime is Pausable {
 ***********************************************/
 
 
-function register () returns(uint) {
+function () payable  {
 	
 	require( hiveParticipants[msg.sender].actif == false );
 	hiveParticipants[msg.sender].actif = true;
-	participantsIn += 1;
+	hiveParticipants[msg.sender].balance += msg.value;
+    hiveParticipants[msg.sender].addr = msg.sender;
 	hiveParticipants[msg.sender].id = participantsIn;
 	participantList.push(msg.sender);
+	participantsIn += 1;
 
-	return participantsIn;
+
 
 }
 
@@ -65,17 +67,17 @@ function register () returns(uint) {
 ******************************************/
 
 
-//function getName view (uint _id) returns(string) public {
-	 //return(hiveParticipants[participantList[_id]].nom);
-//}
 function getBalance (uint _id) public view returns(uint) {
 	return(hiveParticipants[participantList[_id]].balance);
 }
-//function getId (uint _id) returns(uint) internal {
-	
-	//uint memory addr = participantList[_id];
-	//return addr;
-//}
+function getAddress (uint _id) public view returns(address)  {
+	address addr = participantList[_id];
+	return addr;
+}
+function getId (address _addr) public view returns(uint) {
+	return(hiveParticipants[_addr].id);
+}
+
 
 
 
@@ -91,7 +93,7 @@ function getBalance (uint _id) public view returns(uint) {
 *********************************************/	
 
 
-	function setMeeting (string _name,string _time, uint _stake) public payable returns(bool res) {
+	function setMeeting (string _name,string _time, uint _stake)  returns(bool res) {
 		
 		//require( hiveParticipants[msg.sender].actif == true);
 		//create a new meeting with the properties : time, name, id 
@@ -99,9 +101,9 @@ function getBalance (uint _id) public view returns(uint) {
 		//meetingParticipants.push(_id);
 		address yop = msg.sender;
 		address[] meet;
-		Meeting memory meeting = Meeting(_name, _time, _stake, 0, meet);
+		Meeting meeting = Meeting(_name, _time, _stake, 0, meet);
 		meetingList.push(meeting);
-        meetingList[0].meetingParticipant.push(yop);
+        meetingList[meetingList.length-1].meet.push(yop);
 
 		return true;
 	}
@@ -116,7 +118,7 @@ function getBalance (uint _id) public view returns(uint) {
 	// set who assist to a particular meeting  
 	// the owner is always present
 	// the participant call this function to be in buy sending his stake
-	function participate (uint _id, uint _stake) public payable {
+	function participate (uint _id, uint _stake) public  {
 
 		require( hiveParticipants[msg.sender].actif == true );
 		require (msg.value == _stake);
@@ -168,7 +170,27 @@ function getMeetingTime (uint _id) public view returns(string) {
 }
 
 
- 
+ /**************************************
+  * 
+  *         update balance
+  * 
+  * ***********************************/
+  
+  
+  function diminueBalance (uint _id, uint _stake) public returns(uint) {
+      
+      
+      hiveParticipants[participantList[_id]].balance -= _stake;
+      
+	return(hiveParticipants[participantList[_id]].balance);
+}
+  function enrichiBalance (uint _id, uint _stake) public returns(uint) {
+      
+      
+      hiveParticipants[participantList[_id]].balance += _stake;
+      
+	return(hiveParticipants[participantList[_id]].balance);
+}
 
 
 

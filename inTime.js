@@ -7,7 +7,7 @@ const qs = require('querystring');
 var mysql = require('mysql');
 var ejs = require('ejs');
 var mongo = require('mongodb');
-var url = 'mongodb://https://intimetokentest.herokuapp.com/'
+var url = 'mongodb://localhost2707'
 
 
 var con = mysql.createConnection({
